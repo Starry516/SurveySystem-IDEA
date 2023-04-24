@@ -1,20 +1,19 @@
 package com.example.surveysystemtext.controller;
 
-import com.example.surveysystemtext.controller.vo.GPTDescripeVO;
 import com.example.surveysystemtext.controller.vo.GPTGenerateRespVO;
-import com.example.surveysystemtext.entity.*;
-import com.example.surveysystemtext.mapper.FillInMapper;
-import com.example.surveysystemtext.mapper.SurveyMapper;
+import com.example.surveysystemtext.entity.DataMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plexpt.chatgpt.ChatGPT;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
 import com.plexpt.chatgpt.util.Proxys;
-import jakarta.annotation.Resource;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.Proxy;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class ChatController {
-    Proxy proxy = Proxys.http("127.0.0.1", 7890);
+    Proxy proxy = Proxys.http("localhost", 7890);
     @Value("${chatgpt.apiKey}")
     private String apiKey;
     @Value("${chatgpt.apiHost}")
@@ -33,7 +32,7 @@ public class ChatController {
     public GPTGenerateRespVO generateChoice(@RequestBody DataMessage dataMessage) {
 
         ChatGPT chatGPT = ChatGPT.builder()
-                .timeout(600)
+                .timeout(120)
                 .apiKey(apiKey)
                 .proxy(proxy)
                 .apiHost(apiHost)

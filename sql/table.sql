@@ -3,7 +3,7 @@
 -- Host: localhost    Database: surveydb
 -- ------------------------------------------------------
 -- Server version	8.0.32
-CREATE DATABASE surveydb;
+CREATE DATABASE if not exists surveydb;
 USE surveydb;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;

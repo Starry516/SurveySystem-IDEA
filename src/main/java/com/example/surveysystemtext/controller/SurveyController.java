@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/Survey")
 public class SurveyController {
-    Proxy proxy = Proxys.http("127.0.0.1", 7890);
+    Proxy proxy = Proxys.http("localhost", 7890);
     @Autowired
     private SurveyMapper surveyMapper;
     @Resource
@@ -268,7 +268,7 @@ public class SurveyController {
                 输入:
                  {"keyword": "%s"}
                 输出:
-                 """, dataMessage.getCount(),dataMessage.getPrompt()));
+                 """, dataMessage.getCount(), dataMessage.getPrompt()));
         ChatCompletion chatCompletion = ChatCompletion.builder()
                 .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
                 .messages(List.of(system))
@@ -293,13 +293,13 @@ public class SurveyController {
         int order = 1;
         Survey survey = new Survey();
         List<Question> sqlist = new ArrayList<>();
-        for(var q : respVO.getQuestionList()){
+        for (var q : respVO.getQuestionList()) {
             Question sq = new Question();
             sq.setQuestion(q.getTitle());
             sq.setQuestionOrder(order);
             order = order + 1;
             List<Option> solist = new ArrayList<>();
-            for(var o : q.getOptionList()){
+            for (var o : q.getOptionList()) {
                 Option so = new Option();
                 so.setContent(o.getText());
                 solist.add(so);
@@ -312,7 +312,7 @@ public class SurveyController {
         survey.setCreatedUserId(-1L);
         InsertSurvey(survey);
         Survey survey1 = surveyMapper.FindAllSurveyInfo(survey);
-        if(survey1.getSurveyId() == null){
+        if (survey1.getSurveyId() == null) {
             return new CommonResult<>(400, "创建失败");
         }
         return new CommonResult<>(survey1);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.surveysystemtext.mapper.SurveyMapper">
+    <select id="CountQuestion"  parameterType="com.example.surveysystemtext.entity.Survey" resultType="int">
+        SELECT COUNT(*)
+            FROM `question_info`
+                WHERE `survey_id` = #{surveyId}
+    </select>
+
+
+    <select id="findAllSurvey" resultMap="com.example.surveysystemtext.mapper.UserMapper.syrvey1">
+        SELECT *
+            FROM `survey_info`
+    </select>
+
+    <resultMap id="survey2" type="com.example.surveysystemtext.entity.Survey">
+        <result property="surveyId" column="survey_id"/>
+        <result property="createdUserId" column="created_user_id"/>
+        <result property="surveyTitle" column="survey_title"/>
+        <result property="remark" column="remark"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="state" column="state"/>
+        <result property="analysis" column="analysis"/>
+        <collection property="count_question" javaType="int" ofType="com.example.surveysystemtext.entity.Survey" column="{surveyId = survey_id}"
+                    select="com.example.surveysystemtext.mapper.SurveyMapper.CountQuestion"/>
+        <collection property="count_fill_in" javaType="int" ofType="com.example.surveysystemtext.entity.Survey" column="{surveyId = survey_id}"
+                    select="com.example.surveysystemtext.mapper.FillInMapper.Count_SurveyFill_in"/>
+        <collection property="QuestionList" javaType="List" ofType="com.example.surveysystemtext.entity.Survey" column="{surveyId = survey_id}"
+                    select="com.example.surveysystemtext.mapper.QuestionMapper.FindQuestion"/>
+    </resultMap>
+
+    <select id="FindAllSurveyInfo" parameterType="com.example.surveysystemtext.entity.Survey" resultMap="survey2">
+        SELECT *
+            FROM `survey_info`
+                WHERE `survey_id` = #{surveyId}
+    </select>
+
+
+</mapper>

@@ -11,7 +11,7 @@
 
     <select id="findAllSurvey" resultMap="com.example.surveysystemtext.mapper.UserMapper.syrvey1">
         SELECT *
-            FROM `survey_info`
+            FROM `survey_info` ORDER BY `survey_id` DESC
     </select>
 
     <resultMap id="survey2" type="com.example.surveysystemtext.entity.Survey">

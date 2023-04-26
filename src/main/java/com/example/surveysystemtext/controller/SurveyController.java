@@ -296,6 +296,7 @@ public class SurveyController {
         for (var q : respVO.getQuestionList()) {
             Question sq = new Question();
             sq.setQuestion(q.getTitle());
+            sq.setType(1);
             sq.setQuestionOrder(order);
             order = order + 1;
             List<Option> solist = new ArrayList<>();

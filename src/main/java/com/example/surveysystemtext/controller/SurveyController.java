@@ -230,7 +230,18 @@ public class SurveyController {
                 .build()
                 .init();
 
-        Message message = Message.of("给你一段json格式的数据，这是份问卷的数据，帮我分析下列给出的数据并且以自然语言去描述，请对该问卷进行分析总结，字数100字以内，以下是给出的数据：" + dataMessage.getPrompt());
+        Message message = Message.of("""
+                        给你一段json格式的数据，这是份问卷的数据，
+                        帮我分析下列给出的数据并且以自然语言去描述，
+                        我有以下要求：非必要不需要复述问题和问题选项，
+                        用概括简洁的语言去描述概括这份问卷的填写数据，
+                        不需要去描述每个问题的数据，只需要描述整体的数据，
+                        不需要描述问卷背景，只需要描述问卷的数据，
+                        不需要描述问卷的目的，只需要描述问卷的数据，
+                        不需要描述问卷的结论，只需要描述问卷的数据,
+                        分析时最好计算下选项选择的百分比
+                        。现在请对该问卷进行分析总结，字数200字以内，以下是给出的数据：
+                        """+ dataMessage.getPrompt());
         ChatCompletion chatCompletion = ChatCompletion.builder()
                 .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
                 .messages((List.of(message)))

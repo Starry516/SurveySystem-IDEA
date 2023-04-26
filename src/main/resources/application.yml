@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://120.24.240.126:3306/surveydb?serverdb=GMT%2b8
+    url: ********************************
     username: root
     password: wryte
 
